@@ -2,10 +2,24 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Мой первый сайт</title>
+    <title>Серверное время</title>
 </head>
 <body>
-    <h1>Женя жопка</h1>!</h1>
-    <pЛюблю> люблю свою жопку! </p>
+    <h1>Текущее время сервера (Москва)</h1>
+    <input type="text" id="timeField" size="30" readonly>
+    <br><br>
+    <button id="getTimeBtn">Показать время сервера</button>
+    <script>
+        document.getElementById('getTimeBtn').onclick = async () => {
+            try {
+                const response = await fetch('/api/server-time');
+                const data = await response.json();
+                document.getElementById('timeField').value = data.time;
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('timeField').value = 'Ошибка получения времени';
+            }
+        };
+    </script>
 </body>
-</html> 
+</html>
